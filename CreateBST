@@ -1,0 +1,52 @@
+#include <iostream>
+
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node* left;
+    Node* right;
+};
+class BST{
+    public:
+    Node* createNode(int val){
+        Node* t=new Node();
+        t->data=val;
+        t->left=NULL;
+        t->right=NULL;
+        return t;
+    }
+    Node* insert(Node* root,int k){
+        if(root==NULL){
+            Node* t=createNode(k);
+            root=t;
+            return root;
+        }
+        if(k<root->data){
+            root->left=insert(root->left,k);
+        }
+        else if(k>root->data){
+            root->right=insert(root->right,k);
+        }
+        return root; 
+    }
+    void printBST(Node* node){
+        if(node==NULL){
+            return;
+        }
+        printBST(node->left);
+        cout<<" "<<node->data<<" ";
+        printBST(node->right);
+    }
+};
+int main() {
+    Node* root=NULL;
+    BST obj;
+    root=obj.insert(root,1);
+    root=obj.insert(root,2);
+    root=obj.insert(root,3);
+    cout<<"Inorder of the BST\n";
+    obj.printBST(root);
+    
+    //return 0;
+}
