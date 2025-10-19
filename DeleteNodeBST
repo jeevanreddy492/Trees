@@ -1,0 +1,38 @@
+/*
+when we find the node
+1. either one of the left or right is NULL, if left is NULL return right else left
+2. if both left and right nodes are not NULL
+find the successor
+copy the succcessor node data to find node
+delete the successor node (repeat those steps)
+*/
+Node* getSuccessor(Node* node){
+        Node* t=node;
+        while(t->left!=NULL){
+            t=t->left;
+        }
+        return t;
+    }
+    Node* delNode(Node* root, int x) {
+        // code here
+        if(root==NULL){
+            return root;
+        }
+        if(x<root->data){
+            root->left=delNode(root->left,x);
+        }
+        else if(x>root->data){
+            root->right=delNode(root->right,x);
+        }
+        else{
+            if(root->left==NULL || root->right==NULL){
+                Node* t=NULL;
+                t=(root->left==NULL) ? root->right : root->left;
+                return t;
+            }
+            Node* t=getSuccessor(root->right);
+            root->data=t->data;
+            root->right=delNode(root->right,t->data);
+        }
+        return root;
+    }
